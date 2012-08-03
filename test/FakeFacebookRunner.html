@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Mark, may I?</title>
+  
+  <!-- Library files -->
+  <script src="../public/js/libs/jquery-1.7.2.min.js"></script>
+  <script src="../public/js/libs/underscore-1.3.3.min.js"></script>
+  <script src="../public/js/libs/backbone-0.9.2.min.js"></script>
+
+  <!-- Application files -->
+  <script src="../public/js/app.js"></script>
+  <script src="../public/js/app/token.js"></script>
+  <script src="../public/js/app/tokencollection.js"></script>
+  <script src="../public/js/app/createview.js"></script>
+  <script src="../public/js/app/helpview.js"></script>
+  <script src="../public/js/app/permissionview.js"></script>
+  <script src="../public/js/app/tokenview.js"></script>
+  <script src="../public/js/app/appview.js"></script>
+  <script src="libs/fakefacebook.js"></script>
+  <script>
+  $(function() {
+    var tokens = new App.TokenCollection();
+    var facebook = new App.FakeFacebook();
+    new App.AppView({el: $('#app'), facebook: facebook, collection: tokens});
+  });
+  </script>
+  
+  <link href="../public/css/buttons.css" rel="stylesheet" type="text/css">
+  <link href="../public/css/main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+
+  <div id="title">
+    <p>Mark, may I?</p>
+  </div>
+
+  <div id="app">
+    <div id="token" class="hidden">
+      <div id="time"></div>
+      <input id="value">
+      <button id="revoke" class="btn btn-large btn-danger">Revoke</button>
+      <button id="update" class="btn btn-large btn-primary">Update</button>
+    </div>
+
+    <div id="create">
+      <button class="btn btn-large btn-primary">Create New Token</button>
+    </div>
+
+    <div id="steps" class="help">
+      <p>Want to explore the <a href="http://developers.facebook.com/docs/guides/web/">Facebook API</a> without all the setup hassle? Just choose your permissions below, click "Create New Token", and you'll be asked to authorize this app. Then you can use the generated token to make API calls.</p>
+      <p class="hidden">Now you can paste the token into Facebook's <a href="http://developers.facebook.com/tools/explorer/">Graph API Explorer</a> or try out a <a id="sample">manual API call</a>.</p>
+    </div>
+
+    <div class="permissions">
+      <ul class="column">
+        <li><label><input type="checkbox" />user_about_me</label></li>
+        <li><label><input type="checkbox" />friends_about_me</label></li>
+        <li><label><input type="checkbox" />user_activities</label></li>
+        <li><label><input type="checkbox" />friends_activities</label></li>
+        <li><label><input type="checkbox" />user_birthday</label></li>
+        <li><label><input type="checkbox" />friends_birthday</label></li>
+        <li><label><input type="checkbox" />user_checkins</label></li>
+        <li><label><input type="checkbox" />friends_checkins</label></li>
+        <li><label><input type="checkbox" />user_education_history</label></li>
+        <li><label><input type="checkbox" />friends_education_history</label></li>
+        <li><label><input type="checkbox" />user_events</label></li>
+        <li><label><input type="checkbox" />friends_events</label></li>
+      </ul>
+      <ul class="column">
+        <li><label><input type="checkbox" />user_groups</label></li>
+        <li><label><input type="checkbox" />friends_groups</label></li>
+        <li><label><input type="checkbox" />user_hometown</label></li>
+        <li><label><input type="checkbox" />friends_hometown</label></li>
+        <li><label><input type="checkbox" />user_interests</label></li>
+        <li><label><input type="checkbox" />friends_interests</label></li>
+        <li><label><input type="checkbox" />user_likes</label></li>
+        <li><label><input type="checkbox" />friends_likes</label></li>
+        <li><label><input type="checkbox" />user_location</label></li>
+        <li><label><input type="checkbox" />friends_location</label></li>
+        <li><label><input type="checkbox" />user_notes</label></li>
+        <li><label><input type="checkbox" />friends_notes</label></li>
+      </ul>
+      <ul class="column">
+        <li><label><input type="checkbox" />user_photos</label></li>
+        <li><label><input type="checkbox" />friends_photos</label></li>
+        <li><label><input type="checkbox" />user_questions</label></li>
+        <li><label><input type="checkbox" />friends_questions</label></li>
+        <li><label><input type="checkbox" />user_relationships</label></li>
+        <li><label><input type="checkbox" />friends_relationships</label></li>
+        <li><label><input type="checkbox" />user_relationship_details</label></li>
+        <li><label><input type="checkbox" />friends_relationship_details</label></li>
+        <li><label><input type="checkbox" />user_religion_politics</label></li>
+        <li><label><input type="checkbox" />friends_religion_politics</label></li>
+        <li><label><input type="checkbox" />user_status</label></li>
+        <li><label><input type="checkbox" />friends_status</label></li>
+      </ul>
+      <ul class="column">
+        <li><label><input type="checkbox" />user_subscriptions</label></li>
+        <li><label><input type="checkbox" />friends_subscriptions</label></li>
+        <li><label><input type="checkbox" />user_videos</label></li>
+        <li><label><input type="checkbox" />friends_videos</label></li>
+        <li><label><input type="checkbox" />user_website</label></li>
+        <li><label><input type="checkbox" />friends_website</label></li>
+        <li><label><input type="checkbox" />user_work_history</label></li>
+        <li><label><input type="checkbox" />friends_work_history</label></li>
+        <li><label><input type="checkbox" />email</label></li>
+      </ul>
+      <br class="clear" />
+    </div>
+    
+    <div class="help center">
+      <p><a href="http://developers.facebook.com/docs/authentication/permissions/#extended_perms">Extended Permissions</a>: the user can deny these, so don't count on them being available.</p>
+    </div>
+
+    <div class="permissions">
+      <ul class="column">
+        <li><label><input type="checkbox" />read_friendlists</label></li>
+        <li><label><input type="checkbox" />read_insights</label></li>
+        <li><label><input type="checkbox" />read_mailbox</label></li>
+        <li><label><input type="checkbox" />read_requests</label></li>
+      </ul>
+      <ul class="column">
+        <li><label><input type="checkbox" />read_stream</label></li>
+        <li><label><input type="checkbox" />xmpp_login</label></li>
+        <li><label><input type="checkbox" />ads_management</label></li>
+        <li><label><input type="checkbox" />create_event</label></li>
+      </ul>
+      <ul class="column">
+        <li><label><input type="checkbox" />manage_friendlists</label></li>
+        <li><label><input type="checkbox" />manage_notifications</label></li>
+        <li><label><input type="checkbox" />user_online_presence</label></li>
+        <li><label><input type="checkbox" />friends_online_presence</label></li>
+      </ul>
+      <ul class="column">
+        <li><label><input type="checkbox" />publish_checkins</label></li>
+        <li><label><input type="checkbox" />publish_stream</label></li>
+        <li><label><input type="checkbox" />rsvp_event</label></li>
+      </ul>
+      <br class="clear" />
+    </div>
+
+    <div class="help center">
+      <p><a href="https://developers.facebook.com/docs/authentication/permissions/#open_graph_perms">Open Graph Permissions</a> and <a href="https://developers.facebook.com/docs/authentication/permissions/#page_perms">Page Permissions</a>: like basic permissions, the user must accept these to use your app.</p>
+    </div>
+    
+    <div class="permissions">
+      <ul class="column">
+        <li><label><input type="checkbox" />publish_actions</label></li>
+        <li><label><input type="checkbox" />user_actions.music</label></li>
+        <li><label><input type="checkbox" />friends_actions.music</label></li>
+      </ul>
+      <ul class="column">
+        <li><label><input type="checkbox" />user_actions.news</label></li>
+        <li><label><input type="checkbox" />friends_actions.news</label></li>
+        <li><label><input type="checkbox" />user_actions.video</label></li>
+      </ul>
+      <ul class="column">
+        <li><label><input type="checkbox" />friends_actions.video</label></li>
+        <li><label><input type="checkbox" />user_games_activity</label></li>
+        <li><label><input type="checkbox" />friends_games_activity</label></li>
+      </ul>
+      <ul class="column">
+        <li><label><input type="checkbox" />manage_pages</label></li>
+      </ul>
+      <br class="clear" />
+    </div>
+  </div>
+
+  <div id="author">Created by <a href="http://theandrewdavis.com">Andrew Davis</a></div>
+
+  <div id="fb-root"></div>
+
+</body>
+</html>
