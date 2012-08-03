@@ -6,7 +6,7 @@ When I was creating [fb-photo-backup](https://github.com/theandrewdavis/fb-photo
 ### How? ###
 I used the [Backbone](http://backbonejs.org/) MVC library to organize my code and separate model and view concerns. This is a huge step up from [my last web app](https://github.com/theandrewdavis/lf4m), which used jQuery alone, but there seems to be a lot of boilerplate for binding models and views. 
 
-Testing was another big improvement. I used [Jasmine](http://pivotal.github.com/jasmine/) and [Sinon](http://sinonjs.org/) to test my code, and really loved the safety net of running the test suite after a refactor to know I didn't break anything. I also stubbed out the Facebook API so I could work on design and test edge cases without hitting the Facebook servers.
+Testing was another big improvement. I used [Jasmine](http://pivotal.github.com/jasmine/) and [Sinon](http://sinonjs.org/) to test my code, and really loved the safety net of running the test suite after a refactor to know I didn't break anything. I also [stubbed out](https://github.com/theandrewdavis/mark-may-i/blob/master/test/FakeFacebookRunner.html) the Facebook API so I could work on design and test edge cases without hitting the Facebook servers.
 
 ### Usage ###
 The page is hosted on AppFog - [check it out](http://markmayi.theandrewdavis.com/).
